@@ -10,6 +10,7 @@ public class ScreenEdgeCollider : Singleton<ScreenEdgeCollider>
     [SerializeField] private BoxCollider2D rightCol;
     private Camera _camera;
 
+
     private void Awake()
     {
         _camera = GetComponent<Camera>();
@@ -30,19 +31,20 @@ public class ScreenEdgeCollider : Singleton<ScreenEdgeCollider>
 
     private void SetCameraEdges()
     {
-        var halfHeight = _camera.orthographicSize;
-        var halfWidth = _camera.orthographicSize * _camera.aspect;
+        var cameraHeight = _camera.orthographicSize;// * _camera.aspect;
+        var cameraWidth = _camera.orthographicSize * _camera.aspect;
 
-        leftCol.offset = new Vector2(-halfWidth - leftCol.size.x * .5f, 0);
-        leftCol.size = new Vector2(leftCol.size.x, halfHeight * 2);
+        leftCol.offset = new Vector2(-cameraWidth - leftCol.size.x * .5f, 0);
+        leftCol.size = new Vector2(leftCol.size.x, cameraHeight * 2);
 
-        topCol.offset = new Vector2(0, halfHeight + topCol.size.y * .5f);
-        topCol.size = new Vector3(halfWidth * 2, topCol.size.y, 30f);
+        topCol.offset = new Vector2(0, cameraHeight + topCol.size.y * 0.5f);
+        topCol.size = new Vector3(cameraWidth * 2, topCol.size.y, 30f);
 
         rightCol.offset = new Vector2(leftCol.offset.x * -1, leftCol.offset.y);
         rightCol.size = leftCol.size;
 
-        bottomCol.offset = new Vector2(topCol.offset.x, topCol.offset.y * -1);
+        //bottomCol.offset = new Vector2(topCol.offset.x, topCol.offset.y * -1);
+        bottomCol.offset = new Vector2(topCol.offset.x, -cameraHeight * 0.3f - 0.64f);// - topCol.size.y);
         bottomCol.size = topCol.size;
     }
 }

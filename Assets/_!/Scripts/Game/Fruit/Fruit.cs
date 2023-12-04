@@ -1,36 +1,18 @@
-using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fruit : MonoBehaviour, IFactoryElement
+public class Fruit : MonoBehaviour
 {
-    [SerializeField] private Transform rotateTarget;
-
-    public void Prepare(object customParameter = null)
+    // Start is called before the first frame update
+    void Start()
     {
-        Debug.Log("Prepare completed");
-        transform.DORotate(rotateTarget.eulerAngles, 1)
-            .SetEase(Ease.Linear)
-            .SetLoops(-1, LoopType.Incremental);
+        
     }
 
-    public object Interact()
+    // Update is called once per frame
+    void Update()
     {
-        DataHandler.CoinAmount++;
-        Disappear();
-        return null;
-    }
-
-    private void Disappear()
-    {
-        DOTween.Kill(transform);
-
-        transform.DOScale(0, .3f)
-            .SetEase(Ease.InBack)
-            .OnComplete(() =>
-            {
-                gameObject.SetActive(false);
-            });
+        
     }
 }
