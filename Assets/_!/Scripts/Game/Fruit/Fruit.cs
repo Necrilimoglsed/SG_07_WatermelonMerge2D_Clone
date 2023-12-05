@@ -4,39 +4,35 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
 
-public class Fruit : MonoBehaviour, IFactoryElement
+public class Fruit : MonoBehaviour
 {
     //[SerializeField] private Rigidbody2D rigidbody;
 
     private FruitManager _fruitManager;
     private FruitVisual _fruitVisual;
-    private MeshCollider _meshCollider;
-    private int _id;
 
-    //private const float TweenMoveTime = .2f;
-    //private const float TweenMoveSpeed = 5f;
-    //private const float TweenDisappearTime = .28f;
+    //private int _id;
+    //private MeshCollider _meshCollider;
+    private const float TweenMoveTime = .2f;
+    private const float TweenMoveSpeed = 5f;
+    private const float TweenDisappearTime = .28f;
 
-
-    private void OnDestroy()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        
-    }
-
-    public void Prepare(object customParameter = null)
-    {
-        GetID();
-        GenerateVisual();
+        if (collision.collider.TryGetComponent(out Fruit fruit))
+        {
+            Destroy(fruit.gameObject);
+        }
     }
     
-    private void GetID()
+
+    private void Start()
     {
-        _id = _fruitManager.GetRandomId();
+        ActionHandler.Raise(ActionKey.OnFruitCollisionKey);
     }
 
-    private void GenerateVisual()
-    {
-        _fruitVisual = Instantiate(_fruitManager.FruitVisualPrefab, transform);
-        _fruitVisual.Prepare(_id);
-    }
+    
+
+
+
 }

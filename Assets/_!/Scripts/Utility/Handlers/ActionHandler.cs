@@ -7,6 +7,10 @@ public static class ActionKey
     public const string GameStateChangeKey = "GameStateChangeKey";
     public const string CoinUpdateKey = "CoinUpdateKey";
     public const string LevelUpdateKey = "LevelUpdateKey";
+    public const string GameLevelStateChangedKey = "GameLevelStateChangedKey";
+    public const string MoveItemKey = "MoveItemKey";
+    public const string CompleteGameKey = "CompleteGameKey";
+    public const string OnFruitCollisionKey = "OnFruitCollisionKey";
 }
 
 public static class ActionHandler<T>
