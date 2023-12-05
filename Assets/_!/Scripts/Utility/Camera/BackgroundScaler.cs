@@ -8,7 +8,7 @@ public class BackgroundScaler : MonoBehaviour
 
     private void Start()
     {
-        var topRightCorner = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
+        var topRightCorner = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
         var worldSpaceWidth = topRightCorner.x * 2;
         var worldSpaceHeight = topRightCorner.y * 2;
 
@@ -29,6 +29,6 @@ public class BackgroundScaler : MonoBehaviour
             }
         }
 
-        transform.localScale = new Vector3(scaleFactorX, scaleFactorY, 1);
+        transform.localScale = new Vector2(scaleFactorX, scaleFactorY);
     }
 }

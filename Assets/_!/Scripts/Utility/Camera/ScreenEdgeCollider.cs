@@ -8,6 +8,7 @@ public class ScreenEdgeCollider : Singleton<ScreenEdgeCollider>
     [SerializeField] private BoxCollider2D bottomCol;
     [SerializeField] private BoxCollider2D leftCol;
     [SerializeField] private BoxCollider2D rightCol;
+    //[SerializeField] private BoxCollider2D gameOverLineCol;
     private Camera _camera;
 
 
@@ -46,5 +47,6 @@ public class ScreenEdgeCollider : Singleton<ScreenEdgeCollider>
         //bottomCol.offset = new Vector2(topCol.offset.x, topCol.offset.y * -1);
         bottomCol.offset = new Vector2(topCol.offset.x, -cameraHeight * 0.3f - 0.64f);// - topCol.size.y);
         bottomCol.size = topCol.size;
+
     }
 }
