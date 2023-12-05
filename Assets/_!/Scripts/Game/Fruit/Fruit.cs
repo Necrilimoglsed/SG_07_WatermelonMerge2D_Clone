@@ -22,7 +22,6 @@ public class Fruit : MonoBehaviour, IFactoryElement
     public void Prepare(object customParameter = null)
     {
         _fruitManager = (FruitManager)customParameter;
-        GetID();
         GenerateVisual();
     }
     private void OnCollisionEnter2D(Collision2D collision)
