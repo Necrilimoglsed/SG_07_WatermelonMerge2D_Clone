@@ -10,9 +10,9 @@ public abstract class Factory<T> : MonoBehaviour where T : MonoBehaviour, IFacto
 {
     [SerializeField] private T objectPrefab;
 
-    public virtual T Crate(Transform parent, object customParameter = null)
+    public virtual T Create(Transform parent, object customParameter = null)
     {
-        var element = Instantiate(objectPrefab, Vector3.zero, Quaternion.identity, parent);
+        var element = Instantiate(objectPrefab, Vector2.zero, Quaternion.identity, parent);
         element.Prepare(customParameter);
         
         Assert.IsNotNull(element);

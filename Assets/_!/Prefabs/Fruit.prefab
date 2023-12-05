@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8003099808689911236}
   - component: {fileID: 822770579191275979}
   - component: {fileID: 7127551549323359378}
-  - component: {fileID: 3748967235748804196}
+  - component: {fileID: 3952863592411348058}
   m_Layer: 0
   m_Name: Fruit
   m_TagString: Untagged
@@ -149,7 +149,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &3748967235748804196
+--- !u!114 &3952863592411348058
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

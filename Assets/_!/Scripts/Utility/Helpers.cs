@@ -4,8 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace StandardSetup.Runtime.Util
-{
+
     public class Helpers : MonoBehaviour
     {
         #region Vectors
@@ -1356,4 +1355,4 @@ namespace StandardSetup.Runtime.Util
 
     #endregion
 }
-}
+

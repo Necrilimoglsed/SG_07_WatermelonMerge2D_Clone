@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55fc2625d82ac8141a5f34fd97e4eee4, type: 3}
   m_Name: Visual
   m_EditorClassIdentifier: 
-  Visuals: []
+  Visuals:
+  - {fileID: 0}
+  - {fileID: 0}
