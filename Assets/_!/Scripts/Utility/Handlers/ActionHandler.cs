@@ -101,4 +101,5 @@ public static class ActionHandler
             Debug.LogWarning($"There is no listener found with key {myActionKey}");
         }
     }
+    
 }
