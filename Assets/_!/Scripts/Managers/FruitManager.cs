@@ -32,12 +32,14 @@ public class FruitManager : MonoBehaviour
     private void Awake()
     {
         MergeManager.onMergeProcessed += MergeProcessedCallback;
+        ActionHandler<GameStates>.Register(ActionKey.GameStateChangeKey, EnablePlayerInput);
+
     }
     private void Start()
     {
         SetNextFruitIndex();
 
-        canControl = true;
+        canControl = false;
         HideLine();
     }
 
@@ -97,6 +99,19 @@ public class FruitManager : MonoBehaviour
         StartControlTimer();
 
         isControlling = false;
+    }
+
+    private void EnablePlayerInput(GameStates newGameStates)
+    {
+        Debug.Log($"Gamestate changed to {newGameStates}");
+        if (newGameStates == GameStates.Gameplay)
+        {
+            canControl = true;
+        }
+        else
+        {
+            canControl = false;
+        }
     }
     #endregion
 

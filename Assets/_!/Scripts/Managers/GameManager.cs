@@ -2,9 +2,9 @@ using UnityEngine;
 
 
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
-    private LevelStates _currentLevelStates = LevelStates.Gameplay;
+    private LevelStates _currentLevelStates = LevelStates.Complete;
 
     public void SetNewLevelState(LevelStates newLevelStates)
     {

@@ -12,10 +12,11 @@ public class GameOverManager : MonoBehaviour
     [SerializeField] private float gameoverThreshold = 3f;
     private float timer;
     private bool timerOn;
+    private bool isGameplay;
 
     private void Start()
     {
-
+        ActionHandler<GameStates>.Register(ActionKey.GameStateChangeKey, EnableGameOverLine);
     }
 
     private void Update()
@@ -23,8 +24,23 @@ public class GameOverManager : MonoBehaviour
         ManageGameOver();
     }
 
+    private void EnableGameOverLine(GameStates newGameState)
+    {
+        if (newGameState == GameStates.Gameplay)
+        {
+            isGameplay = true;
+        }
+        else
+        {
+            isGameplay = false;
+        }
+    }
     private void ManageGameOver()
     {
+        if (!isGameplay)
+        {
+            return;
+        }
         if (timerOn)
         {
             ManageTimerOn();
@@ -87,6 +103,7 @@ public class GameOverManager : MonoBehaviour
     }
     private void Gameover()
     {
-        Debug.LogError("Gameover");
+        isGameplay = false;
+        ServiceProvider.GetService<GameService>().SetNewGameState(GameStates.Fail);
     }
 }

@@ -1,6 +1,6 @@
    public enum GameStates
     {
-        Gameplay = 0,
-        Complete,
+        Complete = 0,
+        Gameplay,
         Fail
     }

@@ -11,13 +11,12 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         ActionHandler<GameStates>.Register(ActionKey.GameStateChangeKey, OnGameStateChanged);
-        
     }
 
     private void Start()
     {
         HideAllPanels();
-        ShowPanel("GameplayPanel");
+        ShowPanel("CompletePanel");
     }
 
     private void OnDestroy()
@@ -53,4 +52,11 @@ public class UIManager : MonoBehaviour
             panel.Disappear();
         }
     }
+
+    public void PlayButtonCallback()
+    {
+        ServiceProvider.GetService<GameService>().SetNewGameState(GameStates.Gameplay);
+        Debug.Log("Button");
+    }
+    
 }

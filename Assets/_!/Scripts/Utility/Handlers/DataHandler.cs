@@ -4,7 +4,7 @@ using UnityEngine;
 public static class DataHandler
 {
     public const string LevelIndexKey = "LevelIndexKey";
-    public const string CoinAmountKey = "CoinAmountKey";
+    public const string CoinAmountKey = "ScoreKey";
 
     public static int LevelIndex
     {
@@ -23,7 +23,7 @@ public static class DataHandler
         {
             PlayerPrefs.SetInt(CoinAmountKey, value);
             //EventHandler.OnCoinUpdated?.Invoke();
-            ActionHandler.Raise(ActionKey.CoinUpdateKey);
+            ActionHandler.Raise(ActionKey.ScoreKey);
         } 
     }
     
