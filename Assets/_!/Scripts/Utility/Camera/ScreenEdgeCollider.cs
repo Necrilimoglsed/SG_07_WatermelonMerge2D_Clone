@@ -8,7 +8,6 @@ public class ScreenEdgeCollider : Singleton<ScreenEdgeCollider>
     [SerializeField] private BoxCollider2D bottomCol;
     [SerializeField] private BoxCollider2D leftCol;
     [SerializeField] private BoxCollider2D rightCol;
-    //[SerializeField] private BoxCollider2D gameOverLineCol;
     private Camera _camera;
 
 
@@ -25,10 +24,10 @@ public class ScreenEdgeCollider : Singleton<ScreenEdgeCollider>
         SetCameraEdges();
     }
 
-    public Vector3 GetEdges()
-    {
-        return new Vector3(leftCol.size.x, 0, topCol.size.y);
-    }
+    //public Vector3 GetEdges()
+    //{
+    //    return new Vector3(leftCol.size.x, 0, topCol.size.y);
+    //}
 
     private void SetCameraEdges()
     {
@@ -36,10 +35,10 @@ public class ScreenEdgeCollider : Singleton<ScreenEdgeCollider>
         var cameraWidth = _camera.orthographicSize * _camera.aspect;
 
         leftCol.offset = new Vector2(-cameraWidth - leftCol.size.x * .5f, 0);
-        leftCol.size = new Vector2(leftCol.size.x, cameraHeight * 2);
+        leftCol.size = new Vector2(leftCol.size.x, cameraHeight * 3);
 
         topCol.offset = new Vector2(0, cameraHeight + topCol.size.y * 0.5f);
-        topCol.size = new Vector3(cameraWidth * 2, topCol.size.y, 30f);
+        topCol.size = new Vector2(cameraWidth * 2, topCol.size.y);
 
         rightCol.offset = new Vector2(leftCol.offset.x * -1, leftCol.offset.y);
         rightCol.size = leftCol.size;

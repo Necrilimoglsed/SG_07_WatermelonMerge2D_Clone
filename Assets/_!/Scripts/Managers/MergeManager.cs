@@ -13,10 +13,6 @@ public class MergeManager : MonoBehaviour
     {
         Fruit.onCollisionWithFruit += CollisionBetweenFruitsCallback;
     }
-    private void OnDestroy()
-    {
-        
-    }
 
     private void CollisionBetweenFruitsCallback(Fruit sender, Fruit otherFruit)
     {
@@ -36,10 +32,10 @@ public class MergeManager : MonoBehaviour
         FruitType mergeFruitState = sender.GetFruitType();
         mergeFruitState += 1;
 
-        Vector2 fruitSpawnPos = sender.transform.position + otherFruit.transform.position / 2;
-
         Destroy(sender.gameObject);
         Destroy(otherFruit.gameObject);
+
+        Vector2 fruitSpawnPos = (sender.transform.position + otherFruit.transform.position) / 2;
 
         StartCoroutine(ResetLastSenderCoroutine());
 

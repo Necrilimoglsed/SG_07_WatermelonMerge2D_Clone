@@ -7,18 +7,23 @@ using Zenject;
 public class FruitManager : MonoBehaviour
 {
     [Header("Elements")]
-    [SerializeField] private Fruit[] fruitPrefabs;
-    [SerializeField] private LineRenderer fruitSpawnLine;
     [SerializeField] private Fruit[] spawnableFruits;
+    [SerializeField] private Fruit[] fruitPrefabs;
+    [SerializeField] private Transform fruitParent;
+    [SerializeField] private LineRenderer fruitSpawnLine;
     private Fruit _currentFruit;
 
     [Header("Settings")]
     [SerializeField] private float fruitSpawnPositionY;
+    [SerializeField] private float spawnDelay = 0.5f;
+    private bool canControl;
+    private bool isControlling;
+
+    [Header("Next Fruit Settings")]
+    private int nextFruitIndex;
 
     [Header("Debug")]
     [SerializeField] private bool enableGizmos;
-
-    //[SerializeField] private Transform fruitsParent;
 
     private void Awake()
     {
@@ -26,14 +31,20 @@ public class FruitManager : MonoBehaviour
     }
     private void Start()
     {
+        SetNextFruitIndex();
+
+        canControl = true;
         HideLine();
     }
 
     private void Update()
     {
-        ManagePlayerInput();
+        if (canControl)
+        {
+            ManagePlayerInput();
+        }
     }
-
+    #region Player Input Methods
     private void ManagePlayerInput()
     {
         if (Input.GetMouseButtonDown(0))
@@ -42,9 +53,16 @@ public class FruitManager : MonoBehaviour
         }
         else if (Input.GetMouseButton(0))
         {
-            MouseDragCallback();
+            if (isControlling)
+            {
+                MouseDragCallback();
+            }
+            else
+            {
+                MouseDownCallback();
+            }
         }
-        else if (Input.GetMouseButtonUp(0))
+        else if (Input.GetMouseButtonUp(0) && isControlling)
         {
             MouseUpCallback();
         }
@@ -56,27 +74,55 @@ public class FruitManager : MonoBehaviour
         PlaceLineAtClickedPosition();
 
         SpawnFruit();
+
+        isControlling = true;
     }
 
     private void MouseDragCallback()
     {
         PlaceLineAtClickedPosition();
-        //_currentFruit.transform.position = new Vector2(GetSpawnPosition().x, fruitSpawnPositionY);
-        _currentFruit.transform.position = new Vector2(GetSpawnPosition().x, fruitSpawnPositionY);
+        _currentFruit.MoveTo(GetSpawnPosition());
     }
 
     private void MouseUpCallback()
     {
         HideLine();
-        _currentFruit.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-    }
+        _currentFruit.EnablePhysics();
 
+        canControl = false;
+        StartControlTimer();
+
+        isControlling = false;
+    }
+    #endregion
+
+    #region Spawn Methods
     private void SpawnFruit()
     {
         Vector2 spawnPosition = GetClickedWorldPosition();
-        _currentFruit = Instantiate(fruitPrefabs[Random.Range(0, fruitPrefabs.Length)], spawnPosition, Quaternion.identity);
+        Fruit fruitToInstantiate = spawnableFruits[nextFruitIndex];
+
+        _currentFruit = Instantiate(
+            fruitToInstantiate,
+            spawnPosition,
+            Quaternion.identity,
+            fruitParent);
+
+        SetNextFruitIndex();
     }
 
+    private void SetNextFruitIndex()
+    {
+        nextFruitIndex = Random.Range(0, spawnableFruits.Length);
+    }
+    public string GetNextFruitName()
+    {
+        return spawnableFruits[nextFruitIndex].name;
+    }
+    public Sprite GetNextFruitSprite()
+    {
+        return spawnableFruits[nextFruitIndex].GetSprite();
+    }
     private void MergeProcessedCallback(FruitType fruitType, Vector2 spawnPosition)
     {
         for (int i = 0; i < fruitPrefabs.Length; i++)
@@ -88,12 +134,14 @@ public class FruitManager : MonoBehaviour
             }
         }
     }
-
     private void SpawnMergedFruit(Fruit fruit, Vector2 spawnPosition)
     {
-        Fruit fruitInstance = Instantiate(fruit, spawnPosition, Quaternion.identity);
+        Fruit fruitInstance = Instantiate(fruit, spawnPosition, Quaternion.identity, fruitParent);
+        fruitInstance.EnablePhysics();
     }
+    #endregion
 
+    #region Utility Methods
     private Vector2 GetClickedWorldPosition()
     {
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -122,6 +170,18 @@ public class FruitManager : MonoBehaviour
         fruitSpawnLine.enabled = true;
     }
 
+    private void StartControlTimer()
+    {
+        Invoke("StopControlTimer", spawnDelay);
+    }
+
+    private void StopControlTimer()
+    {
+        canControl = true;
+    }
+    #endregion
+
+    #region Gizmos
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
@@ -135,4 +195,5 @@ public class FruitManager : MonoBehaviour
     }
 
 #endif
+    #endregion
 }
