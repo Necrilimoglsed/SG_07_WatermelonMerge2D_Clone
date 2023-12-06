@@ -11,6 +11,11 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         ActionHandler<GameStates>.Register(ActionKey.GameStateChangeKey, OnGameStateChanged);
+        
+    }
+
+    private void Start()
+    {
         HideAllPanels();
         ShowPanel("GameplayPanel");
     }

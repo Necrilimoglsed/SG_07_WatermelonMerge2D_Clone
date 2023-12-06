@@ -12,6 +12,7 @@ public class Fruit : MonoBehaviour
 
     [Header("Data")]
     [SerializeField] private FruitType fruitType;
+    private bool hasCollided;
 
     [Header("Actions")]
     public static Action<Fruit, Fruit> onCollisionWithFruit;
@@ -24,6 +25,8 @@ public class Fruit : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        hasCollided = true;
+
         if (collision.collider.TryGetComponent(out Fruit otherFruit))
         {
             if (otherFruit.GetFruitType() != fruitType)
@@ -52,5 +55,8 @@ public class Fruit : MonoBehaviour
     {
         return spriteRenderer.sprite;
     }
-
+    public bool HasCollided()
+    {
+        return hasCollided;
+    }
 }

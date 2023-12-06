@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 using UnityEngine;
 using Zenject;
-
+using Random = UnityEngine.Random;
 public class FruitManager : MonoBehaviour
 {
     [Header("Elements")]
@@ -24,6 +25,9 @@ public class FruitManager : MonoBehaviour
 
     [Header("Debug")]
     [SerializeField] private bool enableGizmos;
+
+    [Header("Actions")]
+    public static Action onNextFruitIndexSet;
 
     private void Awake()
     {
@@ -114,6 +118,8 @@ public class FruitManager : MonoBehaviour
     private void SetNextFruitIndex()
     {
         nextFruitIndex = Random.Range(0, spawnableFruits.Length);
+
+        onNextFruitIndexSet?.Invoke();
     }
     public string GetNextFruitName()
     {
