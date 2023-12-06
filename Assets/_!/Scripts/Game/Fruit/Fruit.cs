@@ -28,11 +28,6 @@ public class Fruit : MonoBehaviour
     {
         hasCollided = true;
 
-        //if (!canBeMerged)
-        //{
-        //    return;
-        //}
-
         if (collision.collider.TryGetComponent(out Fruit otherFruit))
         {
             if (otherFruit.GetFruitType() != fruitType)
@@ -43,15 +38,6 @@ public class Fruit : MonoBehaviour
             onCollisionWithFruit?.Invoke(this, otherFruit);
         }
     }
-
-    //private void Start()
-    //{
-    //    Invoke("AllowMerge", .5f);        
-    //}
-    //private void AllowMerge()
-    //{
-    //    canBeMerged = true;
-    //}
     public void MoveTo(Vector2 targetPosition)
     {
         transform.position = targetPosition;
