@@ -24,6 +24,10 @@ public class GameOverManager : MonoBehaviour
         ManageGameOver();
     }
 
+    private void OnDestroy()
+    {
+        ActionHandler<GameStates>.Unregister(ActionKey.GameStateChangeKey, EnableGameOverLine);
+    }
     private void EnableGameOverLine(GameStates newGameState)
     {
         if (newGameState == GameStates.Gameplay)

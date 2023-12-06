@@ -9,11 +9,14 @@ public class MergeManager : MonoBehaviour
 
     public static Action<FruitType, Vector2> onMergeProcessed;
 
-    private void Start()
+    private void Awake()
     {
         Fruit.onCollisionWithFruit += CollisionBetweenFruitsCallback;
     }
-
+    private void OnDestroy()
+    {
+        Fruit.onCollisionWithFruit -= CollisionBetweenFruitsCallback;
+    }
     private void CollisionBetweenFruitsCallback(Fruit sender, Fruit otherFruit)
     {
         if (lastSender != null)

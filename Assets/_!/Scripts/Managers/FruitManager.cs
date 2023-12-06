@@ -33,7 +33,6 @@ public class FruitManager : MonoBehaviour
     {
         MergeManager.onMergeProcessed += MergeProcessedCallback;
         ActionHandler<GameStates>.Register(ActionKey.GameStateChangeKey, EnablePlayerInput);
-
     }
     private void Start()
     {
@@ -50,6 +49,13 @@ public class FruitManager : MonoBehaviour
             ManagePlayerInput();
         }
     }
+
+    private void OnDestroy()
+    {
+        MergeManager.onMergeProcessed -= MergeProcessedCallback;
+        ActionHandler<GameStates>.Unregister(ActionKey.GameStateChangeKey, EnablePlayerInput);
+    }
+
     #region Player Input Methods
     private void ManagePlayerInput()
     {

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -57,6 +58,11 @@ public class UIManager : MonoBehaviour
     {
         ServiceProvider.GetService<GameService>().SetNewGameState(GameStates.Gameplay);
         Debug.Log("Button");
+    }
+
+    public void NextButtonCallback()
+    {
+        SceneManager.LoadScene(0);
     }
     
 }
