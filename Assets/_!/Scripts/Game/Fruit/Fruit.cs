@@ -11,7 +11,7 @@ public class Fruit : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     [Header("Data")]
-    [SerializeField] private FruitType fruitType;
+    public FruitType FruitType;
     private bool hasCollided;
 
     [Header("Actions")]
@@ -27,7 +27,7 @@ public class Fruit : MonoBehaviour
 
         if (collision.collider.TryGetComponent(out Fruit otherFruit))
         {
-            if (otherFruit.GetFruitType() != fruitType)
+            if (otherFruit.GetFruitType() != FruitType)
             {
                 return;
             }
@@ -46,7 +46,7 @@ public class Fruit : MonoBehaviour
     }
     public FruitType GetFruitType()
     {
-        return fruitType;
+        return FruitType;
     }
 
     public Sprite GetSprite()

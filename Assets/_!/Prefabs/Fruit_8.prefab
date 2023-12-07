@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2360338076823704413}
   m_Layer: 0
   m_Name: Fruit_8
-  m_TagString: Untagged
+  m_TagString: Fruit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 511478852817826378}
-  fruitType: 8
+  FruitType: 8
 --- !u!58 &503774048897614592
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System;
 using UnityEngine;
-using Zenject;
 using Random = UnityEngine.Random;
+
 public class FruitManager : MonoBehaviour
 {
     [Header("Elements")]
@@ -29,6 +26,7 @@ public class FruitManager : MonoBehaviour
     [Header("Actions")]
     public static Action onNextFruitIndexSet;
 
+    #region Unity Methods
     private void Awake()
     {
         MergeManager.onMergeProcessed += MergeProcessedCallback;
@@ -55,13 +53,13 @@ public class FruitManager : MonoBehaviour
         MergeManager.onMergeProcessed -= MergeProcessedCallback;
         ActionHandler<GameStates>.Unregister(ActionKey.GameStateChangeKey, EnablePlayerInput);
     }
+    #endregion
 
     #region Player Input Methods
     private void ManagePlayerInput()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            //Debug.Log("MouseButtonDown");
             MouseDownCallback();
         }
         else if (Input.GetMouseButton(0))
@@ -83,8 +81,6 @@ public class FruitManager : MonoBehaviour
 
     private void MouseDownCallback()
     {
-        //Debug.Log("MouseButtonDownCallback");
-
         DisplayLine();
         PlaceLineAtClickedPosition();
 
