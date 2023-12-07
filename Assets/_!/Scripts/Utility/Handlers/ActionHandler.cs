@@ -5,8 +5,8 @@ using UnityEngine;
 public static class ActionKey
 {
     public const string GameStateChangeKey = "GameStateChangeKey";
-    public const string LevelUpdateKey = "LevelUpdateKey";
     public const string GameLevelStateChangedKey = "GameLevelStateChangedKey";
+    public const string LevelUpdateKey = "LevelUpdateKey";
     public const string CompleteGameKey = "CompleteGameKey";
     public const string ScoreKey = "ScoreKey";
     public const string OnNextFruitIndexSetKey = "OnNextFruitIndexSetKey";

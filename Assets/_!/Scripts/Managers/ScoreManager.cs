@@ -7,36 +7,90 @@ public class ScoreManager : MonoBehaviour
 {
     [Header("Elements")]
     [SerializeField] private TextMeshProUGUI gameScoreText;
+    [SerializeField] private TextMeshProUGUI watermelonScoreText;
+    [SerializeField] private TextMeshProUGUI gameOverScoreText;
+    [SerializeField] private TextMeshProUGUI highScoreText;
 
     [Header("Settings")]
-    [SerializeField] private float scoreMultiplier;
-    private int score;
+    private int _score;
+    private int _watermelonScore;
+    private int _highScore;
 
     private void Awake()
     {
+        LoadHighScore();
         MergeManager.onMergeProcessed += MergeProcessedCallback;
+        ActionHandler<GameStates>.Register(ActionKey.GameStateChangeKey, GameStateChangedCallback);
+    }
+    private void Start()
+    {
+        UpdateScoreText();
     }
 
     private void OnDestroy()
     {
         MergeManager.onMergeProcessed -= MergeProcessedCallback;
+        ActionHandler<GameStates>.Unregister(ActionKey.GameStateChangeKey, GameStateChangedCallback);
     }
 
-    private void Start()
-    {
-        UpdateScore();
-    }
+    #region Callback Methods
 
     private void MergeProcessedCallback(FruitType fruitType, Vector2 ignoreThis)
     {
-        int scoreToAdd = (int)fruitType;
-        score += (int)(scoreToAdd * scoreMultiplier);
+        _score += (int)Mathf.Pow(2,(int)fruitType);
 
-        UpdateScore();
+        if ((int)fruitType == 11)
+        {
+            Debug.LogWarning("Melon merge");
+            _watermelonScore++;
+            UpdateWatermelonScoreText();
+        }
+        UpdateScoreText();
     }
-
-    private void UpdateScore()
+    private void GameStateChangedCallback(GameStates newGameState)
     {
-        gameScoreText.text = score.ToString();
+        if (newGameState == GameStates.Fail)
+        {
+            UpdateGameOverScore();
+            UpdateGameOverScoreText();
+        }
     }
+
+    #endregion
+
+    #region Update UI Text Methods
+    private void UpdateScoreText()
+    {
+        gameScoreText.text = _score.ToString();
+    }
+    private void UpdateWatermelonScoreText()
+    {
+        watermelonScoreText.text = _watermelonScore.ToString();
+    }
+
+    private void UpdateGameOverScoreText()
+    {
+        highScoreText.text = _highScore.ToString();
+        gameOverScoreText.text = _score.ToString();
+    }
+    #endregion
+
+    #region Data Methods
+    private void UpdateGameOverScore()
+    {
+        if (_score > _highScore)
+        {
+            _highScore = _score;
+            SaveHighScore();
+        }
+    }
+    private void LoadHighScore()
+    {
+        _highScore = DataHandler.Score;
+    }
+    private void SaveHighScore()
+    {
+        DataHandler.Score = _highScore;
+    }
+    #endregion
 }

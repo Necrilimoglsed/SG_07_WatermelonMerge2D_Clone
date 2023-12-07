@@ -18,13 +18,11 @@ public class GameService : MonoBehaviour, IService
     private void Awake()
     {
         ServiceProvider.Register(this);
-        ActionHandler.Register(ActionKey.CompleteGameKey, CompleteState);
     }
 
     private void OnDestroy()
     {
         ServiceProvider.Unregister<GameService>();
-        ActionHandler.Unregister(ActionKey.CompleteGameKey, CompleteState);
     }
 
     public void SetNewGameState(GameStates newGameState)

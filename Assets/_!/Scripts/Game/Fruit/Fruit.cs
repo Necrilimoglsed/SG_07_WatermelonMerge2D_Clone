@@ -13,12 +13,9 @@ public class Fruit : MonoBehaviour
     [Header("Data")]
     [SerializeField] private FruitType fruitType;
     private bool hasCollided;
-    //private bool canBeMerged;
 
     [Header("Actions")]
     public static Action<Fruit, Fruit> onCollisionWithFruit;
-
-    private FruitManager _fruitManager;
 
     private const float TweenMoveTime = .2f;
     private const float TweenMoveSpeed = 5f;

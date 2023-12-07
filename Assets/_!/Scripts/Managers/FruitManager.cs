@@ -61,6 +61,7 @@ public class FruitManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            //Debug.Log("MouseButtonDown");
             MouseDownCallback();
         }
         else if (Input.GetMouseButton(0))
@@ -82,6 +83,8 @@ public class FruitManager : MonoBehaviour
 
     private void MouseDownCallback()
     {
+        //Debug.Log("MouseButtonDownCallback");
+
         DisplayLine();
         PlaceLineAtClickedPosition();
 
@@ -114,7 +117,7 @@ public class FruitManager : MonoBehaviour
         {
             canControl = true;
         }
-        else
+        else if (newGameStates is GameStates.Complete or GameStates.Fail)
         {
             canControl = false;
         }
