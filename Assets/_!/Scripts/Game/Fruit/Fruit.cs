@@ -1,8 +1,6 @@
 using DG.Tweening;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 
 public class Fruit : MonoBehaviour
@@ -16,10 +14,6 @@ public class Fruit : MonoBehaviour
 
     [Header("Actions")]
     public static Action<Fruit, Fruit> onCollisionWithFruit;
-
-    private const float TweenMoveTime = .2f;
-    private const float TweenMoveSpeed = 5f;
-    private const float TweenDisappearTime = .28f;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

@@ -24,14 +24,9 @@ public class ScreenEdgeCollider : Singleton<ScreenEdgeCollider>
         SetCameraEdges();
     }
 
-    //public Vector3 GetEdges()
-    //{
-    //    return new Vector3(leftCol.size.x, 0, topCol.size.y);
-    //}
-
     private void SetCameraEdges()
     {
-        var cameraHeight = _camera.orthographicSize;// * _camera.aspect;
+        var cameraHeight = _camera.orthographicSize;
         var cameraWidth = _camera.orthographicSize * _camera.aspect;
 
         leftCol.offset = new Vector2(-cameraWidth - leftCol.size.x * .5f, 0);
@@ -43,8 +38,7 @@ public class ScreenEdgeCollider : Singleton<ScreenEdgeCollider>
         rightCol.offset = new Vector2(leftCol.offset.x * -1, leftCol.offset.y);
         rightCol.size = leftCol.size;
 
-        //bottomCol.offset = new Vector2(topCol.offset.x, topCol.offset.y * -1);
-        bottomCol.offset = new Vector2(topCol.offset.x, -cameraHeight * 0.3f - 0.64f);// - topCol.size.y);
+        bottomCol.offset = new Vector2(topCol.offset.x, -cameraHeight * 0.3f - 0.64f);
         bottomCol.size = topCol.size;
 
     }

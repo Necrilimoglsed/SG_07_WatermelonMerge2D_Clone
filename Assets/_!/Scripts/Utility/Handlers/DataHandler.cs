@@ -22,7 +22,6 @@ public static class DataHandler
         set
         {
             PlayerPrefs.SetInt(ScoreKey, value);
-            //EventHandler.OnCoinUpdated?.Invoke();
             ActionHandler.Raise(ActionKey.ScoreKey);
         } 
     }
